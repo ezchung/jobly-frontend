@@ -6,6 +6,9 @@ import CompanyDetail from "./CompanyDetail";
 import JobsList from "./JobsList";
 
 /**
+ * Props:
+ * 
+ * State: 
  * 
  * @returns Routes to render components
  * 
