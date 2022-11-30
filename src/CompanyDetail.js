@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import JoblyApi from "./api"
+import JoblyApi from "./joblyApi"
 
 /**
  * Props: None

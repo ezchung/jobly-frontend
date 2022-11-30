@@ -38,7 +38,7 @@ class JoblyApi {
 
   // Individual API routes
 
-    /**
+  /**
      * Makes API call with axios to get all companies
      * { companies: [ { handle, name, description, numEmployees, logoUrl }, ...] }
      */
@@ -47,14 +47,14 @@ class JoblyApi {
         return res.companies;
     }
 
-    /** Get details on a company by handle. */
+  /** Get details on a company by handle. */
 
-    static async getCompany(handle) {
-        let res = await this.request(`companies/${handle}`);
-        return res.company;
-    }
+  static async getCompany(handle) {
+    let res = await this.request(`companies/${handle}`);
+    return res.company;
+  }
 
-    /**
+  /**
      * Make API call to get all jobs
      * { jobs: [ { id, title, salary, equity, companyHandle, companyName }, ...] }
      */
