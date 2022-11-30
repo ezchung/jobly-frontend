@@ -1,7 +1,30 @@
+import JobCard from "./JobCard";
 
-
-function JobCardsList() {
-
+/**
+ * Props:
+ *      jobsList: array like
+ *          [{ id, title, salary, equity, companyHandle, companyName },...]
+ * 
+ * State: 
+ * 
+ * { CompanyDetail, JobsList } => JobCardsList => JobCard
+ */
+function JobCardsList({jobsList}) {
+    return (
+        <div>
+            {jobsList
+                ? (
+                jobsList.map( j => (
+                <div className="company-job row" key={j.id}>
+                    <JobCard job={j} />
+                </div>
+                ))
+                ) : (
+                <p>"This company has no jobs yet."</p>
+                )
+            }
+        </div>
+    )
 }
 
 

@@ -10,7 +10,15 @@ import React from "react";
  */
 
 function JobCard({job}) {
-
+    return (
+        <div className="JobCard">
+        <h3>{job.title}</h3>
+        <p><i>{job.id}</i></p>
+        <p><b>Company:</b> {job.companyName}</p>
+        <p><b>Salary:</b> {job.salary}</p>
+        <p><b>Equity:</b> {job.equity}</p>
+        </div>
+  )
 }
 
 

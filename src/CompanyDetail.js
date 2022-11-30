@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import JobCardsList from "./JobCardsList";
 import JoblyApi from "./joblyApi"
 
 /**
@@ -10,7 +11,7 @@ import JoblyApi from "./joblyApi"
  * Renders the detail of the company, along with a list of jobs for that
  * company (if there are any)
  *
- *  App -> Routes -> Companies/{handle}
+ *  App -> Routes -> Companies/{handle} -> CompanyDetail -> JobCardsList
  */
 function CompanyDetail() {
 
@@ -18,7 +19,8 @@ function CompanyDetail() {
 
   const {name} = useParams();
 
-  useEffect(function getCompany(){
+  console.log("CompanyDetail companyState --------> ", company);
+  useEffect(() => {
     async function getCompanyFromAPI() {
 
       const companyDetail = await JoblyApi.getCompany(name);
@@ -27,37 +29,23 @@ function CompanyDetail() {
       setCompany(companyDetail);
     }
     getCompanyFromAPI();
-  }, [] );
+  }, [name] );
 
-  console.log(company);
-
+  // console.log(company);
 
   return (
     <div className="CompanyDetail">
       <div className="company-info">
         <div className="row">
           <h1>{company.name}</h1>
-          <img src={company.logoUrl} />
+          <img src={company.logoUrl} alt={company.handle}/>
         </div>
         <p>{company.description}</p>
         <p><b>Number of Employees:</b> {company.numEmployees}</p>
       </div>
 
       <div className="company-jobs-list">
-        {company.jobs
-          ? (
-          company.jobs.map( j => (
-            <div className="company-job row" key={j.id}>
-              <h3>{j.id}:  {j.title}</h3>
-              <p><b>Salary: </b>{j.salary}</p>
-              <p><b>Equity: </b>{j.equity ? j.equity : "None" }</p>
-            </div>
-          ))
-          ) : (
-            <p>"This company has no jobs yet."</p>
-          )
-        }
-
+        <JobCardsList jobsList={company.jobs} />
       </div>
     </div>
   )
