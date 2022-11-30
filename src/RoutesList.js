@@ -5,7 +5,12 @@ import CompaniesList from "./CompaniesList";
 import CompanyDetail from "./CompanyDetail";
 import JobsList from "./JobsList";
 
-
+/**
+ * 
+ * @returns Routes to render components
+ * 
+ * JoblyApp -> RoutesList -> { CompanyDetail, CompaniesList, JobsList, Home }
+ */
 function RoutesList() {
   return (
     <Routes>
@@ -16,7 +21,6 @@ function RoutesList() {
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
-
 }
 
 

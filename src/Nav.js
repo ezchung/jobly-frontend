@@ -1,6 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+/**
+ * 
+ * Props: None
+ * 
+ * State: None
+ * 
+ * @returns Nav Component
+ * 
+ * App -> Nav 
+ */
 function Nav() {
   return (
     <div>
