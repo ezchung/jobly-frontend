@@ -3,7 +3,7 @@ import JoblyApp from "./JoblyApp";
 
 import './App.css';
 
-/**
+/** App for rendering jobly application
  *
  * Props: None
  *

@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import JobCardsList from "./JobCardsList";
 import JoblyApi from "./joblyApi"
 
-/**
+/** Component for managing queried company details
  * Props: None
  *
  * State: company object like { handle, name, description, numEmployees, logoUrl }
@@ -20,6 +20,7 @@ function CompanyDetail() {
   const {name} = useParams();
 
   console.log("CompanyDetail companyState --------> ", company);
+  //TODO: give name to anon function
   useEffect(() => {
     async function getCompanyFromAPI() {
 
@@ -32,7 +33,7 @@ function CompanyDetail() {
   }, [name] );
 
   // console.log(company);
-
+  //TODO: className have CompanyDetail and make unique among all components
   return (
     <div className="CompanyDetail">
       <div className="company-info">

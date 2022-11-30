@@ -3,7 +3,8 @@ import { BrowserRouter } from "react-router-dom";
 import Nav from "./Nav";
 import RoutesList from "./RoutesList";
 
-/**
+/** Component for managing jobly application
+ * 
  * Prop: None
  * 
  * State: None

@@ -5,7 +5,7 @@ import CompaniesList from "./CompaniesList";
 import CompanyDetail from "./CompanyDetail";
 import JobsList from "./JobsList";
 
-/**
+/** Component for managing routes
  * Props:
  * 
  * State: 

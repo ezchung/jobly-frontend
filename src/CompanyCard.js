@@ -1,6 +1,7 @@
 import React from "react";
 
-/**
+/** Component for creating company card (Presentational)
+ * 
  * Props: Company object like:
  *  { handle, name, description, numEmployees, logoUrl }
  *

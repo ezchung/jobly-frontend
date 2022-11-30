@@ -7,7 +7,7 @@ import SearchForm from "./SearchForm";
  * Props: None
  *
  * State:
- *      searchTerm: string
+ *      searchTerm: string //TODO: update, can also add isloading
  *      jobsList: array like
  *          [ { id, title, salary, equity, companyHandle, companyName }, ...] 
  *
@@ -26,7 +26,7 @@ function JobsList() {
         }
         getAllJobsFromApi();
     }, []);
-
+    //TODO: variable name & classNames
     async function searchJob(searchString){
         const resp = await JoblyApi.getSearchedJobs(searchString)
         setJobsList(resp);
