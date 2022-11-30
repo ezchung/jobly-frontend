@@ -18,6 +18,7 @@ class JoblyApi {
     "SI6InRlc3R1c2VyIiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTU5ODE1OTI1OX0." +
     "FtrMwBQwe6Ue-glIFgz_Nf8XxRT2YecFCiSpYL0fCXc";
 
+
   static async request(endpoint, data = {}, method = "get") {
     console.debug("API Call:", endpoint, data, method);
 
@@ -63,7 +64,14 @@ class JoblyApi {
         return res.jobs;
     }
 
-
+    /**
+     * Make API call with filter to get specific companies
+     * 
+     */
+    static async getSearchedCompanies(searchTerm){
+      let res = await this.request(`companies?nameLike=${searchTerm}`);
+      return res.companies;
+    }
 }
 
 export default JoblyApi;
