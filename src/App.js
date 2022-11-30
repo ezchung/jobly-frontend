@@ -1,16 +1,26 @@
 import Home from "./Home";
 import Nav from "./Nav";
-import './App.css';
 import { getAllCompanies, getJobsForCompany } from "./API";
+import {
+  Navigate,
+  Routes,
+  Route,
+  BrowserRouter,
+  Router,
+} from "react-router-dom";
+import RoutesList from "./RoutesList";
+
+import './App.css';
 
 function App() {
   getAllCompanies();
   getJobsForCompany("davis-davis");
   return (
     <div className="App">
-      < Nav />
-      < Home />
-
+      <BrowserRouter>
+        < Nav />
+        <RoutesList />
+      </BrowserRouter>
     </div>
   );
 }
