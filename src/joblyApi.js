@@ -66,11 +66,21 @@ class JoblyApi {
 
     /**
      * Make API call with filter to get specific companies
-     * 
+     *    Filters sent through query string params nameLike
      */
     static async getSearchedCompanies(searchTerm){
       let res = await this.request(`companies?nameLike=${searchTerm}`);
       return res.companies;
+    }
+
+    /**
+     * Make API call with filter to get specific companies
+     *    Filters sent through query string params title
+     */
+    static async getSearchedJobs(searchTerm){
+      let res = await this.request(`jobs?title=${searchTerm}`);
+      console.log(res, "<---------------- getSearchedJobs")
+      return res.jobs;
     }
 }
 

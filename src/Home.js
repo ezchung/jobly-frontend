@@ -1,7 +1,15 @@
-//TODO: Docstring
+/**
+ * Props: None
+ * 
+ * State: None
+ * 
+ * @returns Home component
+ * 
+ * JoblyApp => Home 
+ */
 function Home() {
  return(
-  <div>Hello!!!!</div>
+  <div>Hello, Homebody!!!!</div>
  )
 }
 
