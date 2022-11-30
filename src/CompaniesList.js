@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from "react";
-import { getAllCompanies } from "./API";
+import { Link } from "react-router-dom";
+import JoblyApi from "./api"
 import SearchForm from "./SearchForm";
 import CompanyCard from "./CompanyCard";
 
 /**
  * Props: None
- * 
- * State: 
+ *
+ * State:
  *      searchTerm: string
- *      companyList: array like 
+ *      companyList: array like
  *          [ { handle, name, description, numEmployees, logoUrl }, ...]
- * 
+ *
  * RoutesList => CompaniesList => { SearchForm, CompanyCard }
  */
 function CompaniesList() {
@@ -19,13 +20,25 @@ function CompaniesList() {
 
     useEffect(function getCompanies(){
         async function getAllCompaniesFromAPI(){
-            const companiesResult = await getAllCompanies();
+            const companiesResult = await JoblyApi.getAllCompanies();
             setCompaniesList(companiesResult);
         }
         getAllCompaniesFromAPI();
     }, []);
 
-    console.log(companiesList, "<-------- companiesList")
+    return (
+      <div className="CompaniesList">
+        {companiesList.map(c => (
+          <div key={c.handle}>
+            <Link to={`/companies/${c.handle}`}>
+              <div className="row" >
+                < CompanyCard company={c} />
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
+    )
 
 }
 
