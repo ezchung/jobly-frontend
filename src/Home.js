@@ -12,6 +12,6 @@ function Home() {
   <div>Hello, Homebody!!!!</div>
  )
 }
-
+//TODO: check in context if user exists
 
 export default Home;
