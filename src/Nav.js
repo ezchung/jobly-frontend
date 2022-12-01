@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Nav.css";
+import userContext from "./userContext";
 
 /** Component for navigation bar
  *
@@ -12,8 +13,11 @@ import "./Nav.css";
  *
  * App -> Nav
  */
-function Nav({ isLoggedIn }) {
+function Nav() {
   //TODO: get username to put next to logout
+  const { token } = useContext(userContext);
+
+  console.log("Nav -----------> ",token);
 
   return (
     <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -24,7 +28,7 @@ function Nav({ isLoggedIn }) {
     >
       <img className="jobly-logo bi me-2" src="/logo192.png" alt="Jobly Logo" />
     </NavLink>
-    {isLoggedIn 
+    {token 
       ? (
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" >
             <li className="nav-link px-2 link-secondary">
