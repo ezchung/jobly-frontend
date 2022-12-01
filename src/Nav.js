@@ -20,7 +20,7 @@ function Nav() {
       className={"d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"}
       to={"/"}
     >
-      <img className="jobly-logo bi me-2" src="logo192.png" alt="Jobly Logo" />
+      <img className="jobly-logo bi me-2" src="/logo192.png" alt="Jobly Logo" />
     </NavLink>
 
     <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" >
