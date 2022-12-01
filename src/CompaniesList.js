@@ -52,15 +52,17 @@ function CompaniesList() {
     return (
       <div className="CompaniesList">
         <SearchForm executeSearch={searchCompany}/>
+        <div className="CompaniesList row">
         {companies.companiesList.map(c => (
-          <div key={c.handle}>
-            <Link to={`/companies/${c.handle}`}>
-              <div className="row" >
-                < CompanyCard company={c} />
-              </div>
-            </Link>
-          </div>
-        ))}
+            <div key={c.handle} className="CompaniesList col-md-4">
+              <Link to={`/companies/${c.handle}`} 
+                    className="CompaniesList stretched-link"></Link>
+                <div className="CompaniesList" >
+                  < CompanyCard company={c} />
+                </div>
+            </div>
+          ))}
+        </div>
 
       </div>
     )
