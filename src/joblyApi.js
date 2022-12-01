@@ -37,6 +37,7 @@ class JoblyApi {
     }
   }
 
+
   // Individual API routes
 
   /**
@@ -81,6 +82,24 @@ class JoblyApi {
       let res = await this.request(`jobs?title=${searchTerm}`);
       return res.jobs;
     }
+
+    /**
+     * Make API call to /token and get token back
+     */
+    static async getLoggedInUserToken(formData){
+      console.log("Here in API", formData)
+      let res = await this.request(`auth/token`, formData, "post");
+      console.log(res, "<----------- getLoggedInUser");
+      return res.token;
+    }
+
+    /**
+     * Make API call to /register to create new user
+     */
+
+    /**
+     * Make API call to add applied jobs
+     */
 }
 
 export default JoblyApi;

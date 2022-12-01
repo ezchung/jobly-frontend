@@ -18,17 +18,16 @@ import JoblyApp from "./JoblyApp";
  * 
  * JoblyApp -> RoutesList -> { CompanyDetail, CompaniesList, JobsList, Home }
  */
-function RoutesList() {
+function RoutesList({handleLogin}) {
   return (
     <Routes>
       <Route path="/companies/:name" element={<CompanyDetail />} />
       <Route path="/companies" element={<CompaniesList />} />
       <Route path="/jobs" element={<JobsList />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/login" element={<LoginForm />} />
+      <Route path="/login" element={<LoginForm handleLogin={handleLogin}/>} />
       <Route path="/signup" element={<SignUpForm />} />
-      <Route path="/logout" element={<JoblyApp />} /> 
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />} /> 
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )
@@ -37,5 +36,4 @@ function RoutesList() {
 
 export default RoutesList;
 
-// With logout, re-render element joblyApp by changing isLoggedIn to false
 //TODO: call logged out function

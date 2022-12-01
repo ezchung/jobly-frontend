@@ -13,9 +13,9 @@ import userContext from "./userContext";
  *
  * App -> Nav
  */
-function Nav() {
+function Nav({logout}) {
   //TODO: get username to put next to logout
-  const { token } = useContext(userContext);
+  const { token, username } = useContext(userContext);
 
   console.log("Nav -----------> ",token);
 
@@ -34,7 +34,7 @@ function Nav() {
             <li className="nav-link px-2 link-secondary">
               <NavLink
                 className={({ isActive }) => (isActive ? "nav active" : undefined)}
-                to={"/companies"}
+                to={"/companies"} 
               >Companies
               </NavLink>
             </li>
@@ -58,8 +58,8 @@ function Nav() {
             <li className="nav-link px-2 link-secondary">
               <NavLink
                 className={({ isActive }) => (isActive ? "nav active" : undefined)}
-                to={"/logout"}
-              >Logout NAME_OF_USER
+                to={"/logout"} onClick={logout}
+              >{`Logout ${username}`}
               </NavLink>
             </li>
           </ul>
@@ -69,7 +69,7 @@ function Nav() {
           <li className="nav-link px-2 link-secondary">
             <NavLink
               className={({ isActive }) => (isActive ? "nav active" : undefined)}
-              to={"/login"}
+              to={"/login"} 
             >Login
             </NavLink>
           </li>
