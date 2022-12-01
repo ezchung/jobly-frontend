@@ -8,19 +8,15 @@ import JobCard from "./JobCard";
  * State:
  *
  * { CompanyDetail, JobsList } => JobCardsList => JobCard
- */ //TODO: the logic of no jobs? in the parent components
+ */
 function JobCardsList({ jobsList }) {
   return (
     <div>
-      {jobsList ? (
-        jobsList.map((j) => (
+      {jobsList.map((j) => (
           <div className="company-job row" key={j.id}>
             <JobCard job={j} />
           </div>
-        ))
-      ) : (
-        <p>"This company has no jobs yet."</p>
-      )}
+        ))}
     </div>
   );
 }

@@ -6,38 +6,54 @@ import SearchForm from "./SearchForm";
 /**
  * Props: None
  *
- * State:
- *      searchTerm: string //TODO: update, can also add isloading
- *      jobsList: array like
- *          [ { id, title, salary, equity, companyHandle, companyName }, ...] 
- *
+ * State:  jobsList {
+ *              isLoading: bool
+ *              jobsList: array like
+ *                 [ { id, title, salary, equity, companyHandle, companyName }, ...]
+ *          }
  * RoutesList => JobsList => { SearchForm, JobCardsList }
  */
 
 function JobsList() {
-    const [jobsList, setJobsList] = useState([]);
+
+    const initialData = {
+        isLoading: true,
+        jobs: []
+    }
+    const [jobsList, setJobsList] = useState(initialData);
 
     console.log("JobsList State -----------> ", jobsList);
 
-    useEffect(() => {
+    useEffect(function getAllJobsData() {
         async function getAllJobsFromApi(){
             const jobsResult = await JoblyApi.getAllJobs();
-            setJobsList(jobsResult);
+            setJobsList({isLoading: false, jobs: jobsResult});
         }
         getAllJobsFromApi();
     }, []);
-    //TODO: variable name & classNames
+
     async function searchJob(searchString){
-        const resp = await JoblyApi.getSearchedJobs(searchString)
-        setJobsList(resp);
+        if (searchString === '') {
+            const allJobs = await JoblyApi.getAllJobs();
+            setJobsList({isLoading: false, jobs: allJobs});
+        } else {
+            const filteredJobs = await JoblyApi.getSearchedJobs(searchString)
+            setJobsList({isLoading: false, jobs: filteredJobs});
+        }
+    }
+
+    if (jobsList.jobs.length == 0 && !jobsList.isLoading) {
+        return (
+            <div>There are no jobs that match your search.</div>
+        )
     }
 
 
  return (
     <div className="JobsList">
         <SearchForm executeSearch={searchJob}/>
-        <div className="row" >
-            <JobCardsList jobsList={jobsList} />
+        <div className="JobsList-row row" >
+            <JobCardsList jobsList={jobsList.jobs} />
         </div>
     </div>
  )

@@ -6,7 +6,10 @@ import JoblyApi from "./joblyApi"
 /** Component for managing queried company details
  * Props: None
  *
- * State: company object like { handle, name, description, numEmployees, logoUrl }
+ * State: companyData {
+ *    isLoading: bool,
+ *    company: object like { handle, name, description, numEmployees, logoUrl }
+ * }
  *
  * Renders the detail of the company, along with a list of jobs for that
  * company (if there are any)
@@ -15,38 +18,41 @@ import JoblyApi from "./joblyApi"
  */
 function CompanyDetail() {
 
-  const [company, setCompany] = useState({});
+  const initialData = {
+    isLoading: true,
+    company: {}
+  }
+  const [companyData, setCompanyData] = useState(initialData);
 
   const {name} = useParams();
 
-  console.log("CompanyDetail companyState --------> ", company);
-  //TODO: give name to anon function
-  useEffect(() => {
+  console.log("CompanyDetail companyData---> ", companyData);
+
+  useEffect( function getCompanyData() {
     async function getCompanyFromAPI() {
-
       const companyDetail = await JoblyApi.getCompany(name);
-      console.log("companyDetail in ")
-
-      setCompany(companyDetail);
+      setCompanyData({company: companyDetail, isLoading: false});
     }
     getCompanyFromAPI();
   }, [name] );
 
-  // console.log(company);
-  //TODO: className have CompanyDetail and make unique among all components
+  if (companyData.isLoading) {
+    return (<div>Loading company data...</div>)
+  }
+
   return (
     <div className="CompanyDetail">
-      <div className="company-info">
-        <div className="row">
-          <h1>{company.name}</h1>
-          <img src={company.logoUrl} alt={company.handle}/>
+      <div className="CompanyDetail-info">
+        <div className="CompanyDetail-row row">
+          <h1>{companyData.company.name}</h1>
+          <img src={companyData.company.logoUrl} alt={companyData.company.handle}/>
         </div>
-        <p>{company.description}</p>
-        <p><b>Number of Employees:</b> {company.numEmployees}</p>
+        <p>{companyData.company.description}</p>
+        <p><b>Number of Employees:</b> {companyData.company.numEmployees}</p>
       </div>
 
-      <div className="company-jobs-list">
-        <JobCardsList jobsList={company.jobs} />
+      <div className="CompanyDetail-jobs-list">
+        <JobCardsList jobsList={companyData.company.jobs} />
       </div>
     </div>
   )

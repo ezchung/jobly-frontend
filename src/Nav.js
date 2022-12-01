@@ -14,36 +14,33 @@ import "./Nav.css";
  */
 function Nav() {
   return (
-    <div className="Nav row">
-      <ul>
-        <li>
-          <NavLink
-            className={({ isActive }) => (isActive ? "nav active" : undefined)}
-            to={"/"}
-          >
-            <h2>Jobly</h2>
-          </NavLink>
-        </li>
+    <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
-        <li>
-          <NavLink
-            className={({ isActive }) => (isActive ? "nav active" : undefined)}
-            to={"/companies"}
-          >
-            <h2>Companies</h2>
-          </NavLink>
-        </li>
+    <NavLink
+      className={"d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"}
+      to={"/"}
+    >
+      <img className="jobly-logo bi me-2" src="logo192.png" alt="Jobly Logo" />
+    </NavLink>
 
-        <li>
-          <NavLink
-            className={({ isActive }) => (isActive ? "nav active" : undefined)}
-            to={"/jobs"}
-          >
-            <h2>Jobs</h2>
-          </NavLink>
-        </li>
-      </ul>
-    </div>
+    <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" >
+      <li className="nav-link px-2 link-secondary">
+        <NavLink
+          className={({ isActive }) => (isActive ? "nav active" : undefined)}
+          to={"/companies"}
+        >Companies
+        </NavLink>
+      </li>
+
+      <li className="nav-link px-2 link-secondary">
+        <NavLink
+          className={({ isActive }) => (isActive ? "nav active" : undefined)}
+          to={"/jobs"}
+        >Jobs
+        </NavLink>
+      </li>
+    </ul>
+    </header>
   )
 }
 
