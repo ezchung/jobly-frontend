@@ -4,12 +4,13 @@ import JoblyApi from "./joblyApi";
 import Nav from "./Nav";
 import RoutesList from "./RoutesList";
 import userContext from "./userContext";
+import jwt_decode from "jwt-decode";
 
 /** Component for managing jobly application
  *
  * Prop: None
  *
- * State: 
+ * State:
  *      initialData = {
  *          currUserData : null || {},
  *          isLoading : bool
@@ -22,54 +23,70 @@ import userContext from "./userContext";
  */
 function JoblyApp() {
     const initialData = {
-        //{currUserData: null (replaced with object after interaction with API, getting user data), *LoadingState: true, }
         currUserData: null,
-        isLoading : false
-    }
+        isLoading: true
+    };
 
-    const [token, setToken] =useState(null);
+    const [token, setToken] = useState(null);
 
     const [userData, setUserData] = useState(initialData);
 
-    function logout(){
+    /** Upon token change in state, gets user data from API request
+     *  assigns user data to state and sets isLoading to false.
+     */
+    useEffect(function getUserData() {
+        if (token) {
+            const payload = jwt_decode(token);
+            JoblyApi.token = token;
+            async function getUserDataFromApi() {
+                const userDataFromApi = await JoblyApi.getUserData(payload.username, token);
+                setUserData({ isLoading: false, currUserData: userDataFromApi.user });
+            }
+            getUserDataFromApi();
+        } else {
+            setUserData({ currUserData: null, isLoading: true });
+            JoblyApi.token = null;
+        }
+    }, [token]);
+
+    /** Handles user login. Gets user token from API call and sets token
+     * to JoblyApi.token and sets it in state.
+     */
+    async function handleLogin(formData) {
+        const userToken = await JoblyApi.getLoggedInUserToken(formData);
+        setToken(userToken);
+    }
+
+    /** Handles user registration. Gets user token from API call and sets token
+    * to JoblyApi.token and sets it in state.
+    */
+    async function handleSignUp(formData) {
+        const token = await JoblyApi.getNewUserToken(formData);
+        setToken(token);
+    }
+
+    /** Handles user logout. Resets userData in state to initial data and
+     *  resets the token.
+     */ //TODO: //update token in state
+    function logout() {
         setUserData(initialData);
         JoblyApi.token = null;
     }
-    //TODO: using useEffect listening for change to token. 
-    //Currently only hanging on to token. *With jobs, will want to fetch
-    //Function for login etc.
-    //FIXME: inside of effect listening for token change, make fetch for user. if done, can move logic of line 34 and 42 into one. Can decode token and backend has username in payload
-    useEffect(await JoblyApi.getUser, [token])
 
-    async function handleLogin(formData){
-        const { username } = formData;
-        const token = await JoblyApi.getLoggedInUserToken(formData);
-        JoblyApi.token = token;
-
-        setUserData({...userData, token:token, username:username });
-    }
-
-    async function handleSignUp(formData){
-        const token = await JoblyApi.getNewUserToken(formData);
-        const { username } = formData;
-        setUserData({...userData, token: token, username: username})
-        JoblyApi.token = token;
-    }
-//TODO: with currentContext can change context to currUserData : userData.currUserData. Can take out token (already saved in JoblyApi) 
     return (
         <div className="JoblyApp">
-            <userContext.Provider value={{token : token, username: currUserData.username}}> 
+            <userContext.Provider value={{ currUserData: userData.currUserData }}>
                 <div className="container">
-                        <BrowserRouter>
-                            <Nav logout={logout}/>
-                            <RoutesList
-                                handleLogin={handleLogin}
-                                handleSignUp={handleSignUp}/>
-                        </BrowserRouter>
+                    <BrowserRouter>
+                        <Nav logout={logout} />
+                        <RoutesList
+                            handleLogin={handleLogin}
+                            handleSignUp={handleSignUp} />
+                    </BrowserRouter>
                 </div>
             </userContext.Provider>
         </div>
-    )
+    );
 }
 
 

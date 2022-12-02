@@ -1,5 +1,13 @@
-.CompanyCard-img{
-    max-width: 100px;
-    align-items: center;
+.CompanyCard-img {
+  max-width: 100px;
+  align-items: center;
+}
+
+/* .CompanyCard.card-body :active {
+  text-decoration: none;
+} */
+
+.CompanyCard-row {
+  text-decoration: none;
 }
 

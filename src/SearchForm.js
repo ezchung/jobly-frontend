@@ -9,17 +9,15 @@ import { useState } from "react";
  *
  * CompaniesList => SearchForm
  */
-function SearchForm({executeSearch}) {
+function SearchForm({ executeSearch }) {
     const [searchData, setSearchData] = useState("");
 
-    console.log("SearchForm State -------> ", searchData);
-
-    function handleChange(evt){
+    function handleChange(evt) {
         const { value } = evt.target;
         setSearchData(value);
     }
 
-    function handleSubmit(evt){
+    function handleSubmit(evt) {
         evt.preventDefault();
         executeSearch(searchData);
     }
@@ -39,7 +37,7 @@ function SearchForm({executeSearch}) {
                 <button className="btn">Submit</button>
             </div>
         </form>
-    )
+    );
 
 }
 

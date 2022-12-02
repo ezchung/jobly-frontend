@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom";
 import userContext from "./userContext";
 
 /**
@@ -12,7 +12,7 @@ import userContext from "./userContext";
  *
  * { Nav, RoutesList } => SignUpForm
  */
-function SignUpForm({handleSignUp}) {
+function SignUpForm({ handleSignUp }) {
 
     const initialFormData = {
         username: "",
@@ -20,33 +20,34 @@ function SignUpForm({handleSignUp}) {
         firstName: "",
         lastName: "",
         email: ""
-    }
+    };
 
-    const [formData, setFormData ] = useState(initialFormData);
+    const [formData, setFormData] = useState(initialFormData);
 
-    const { token } = useContext(userContext);
+    const { currUserData } = useContext(userContext);
 
-    function handleChange(evt){
-        const {name, value} = evt.target;
+    /** Handles the user input of the user registration form. Saves data in state */
+    function handleChange(evt) {
+        const { name, value } = evt.target;
 
         setFormData((currData) => {
             currData[name] = value;
-            return {...currData};
+            return { ...currData };
         });
     }
 
 
-
-    function handleSubmit(evt){
+    /** Handles submission of user registration form. Calls parent function
+     *  handleSignUp(), passing in the form data.
+     */
+    function handleSubmit(evt) {
         evt.preventDefault();
-        console.log("formData in handleSubmit---> ", formData)
         handleSignUp(formData);
     }
-    console.log("formData after handleSubmit---> ", formData)
 
     return (
         <div>
-            {token
+            {currUserData
                 ? (
                     <div>
                         <Navigate to="/companies"></Navigate>
@@ -106,7 +107,7 @@ function SignUpForm({handleSignUp}) {
 
             }
         </div>
-    )
+    );
 
 
 }

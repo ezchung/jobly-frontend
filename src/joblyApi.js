@@ -27,8 +27,8 @@ class JoblyApi {
     const url = `${BASE_URL}/${endpoint}`;
     const headers = { Authorization: `Bearer ${JoblyApi.token}` };
     const params = (method === "get")
-        ? data
-        : {};
+      ? data
+      : {};
 
     try {
       return (await axios({ url, method, data, params, headers })).data;
@@ -38,18 +38,18 @@ class JoblyApi {
       throw Array.isArray(message) ? message : [message];
     }
   }
-
-
   // Individual API routes
+
+  /********************** COMPANIES  ***************************/
 
   /**
      * Makes API call with axios to get all companies
      * { companies: [ { handle, name, description, numEmployees, logoUrl }, ...] }
      */
-    static async getAllCompanies(){
-        const res = await this.request(`companies`);
-        return res.companies;
-    }
+  static async getAllCompanies() {
+    const res = await this.request(`companies`);
+    return res.companies;
+  }
 
   /** Get details on a company by handle. */
 
@@ -62,48 +62,58 @@ class JoblyApi {
      * Make API call to get all jobs
      * { jobs: [ { id, title, salary, equity, companyHandle, companyName }, ...] }
      */
-    static async getAllJobs(){
-        const res = await this.request(`jobs`);
-        return res.jobs;
-    }
+  static async getAllJobs() {
+    const res = await this.request(`jobs`);
+    return res.jobs;
+  }
 
-    /**
-     * Make API call with filter to get specific companies
-     *    Filters sent through query string params nameLike
-     */
-    static async getSearchedCompanies(searchTerm){
-      let res = await this.request(`companies?nameLike=${searchTerm}`);
-      return res.companies;
-    }
+  /**
+   * Make API call with filter to get specific companies
+   *    Filters sent through query string params nameLike
+   */
+  static async getSearchedCompanies(searchTerm) {
+    let res = await this.request(`companies?nameLike=${searchTerm}`);
+    return res.companies;
+  }
 
-    /**
-     * Make API call with filter to get specific companies
-     *    Filters sent through query string params title
-     */
-    static async getSearchedJobs(searchTerm){
-      let res = await this.request(`jobs?title=${searchTerm}`);
-      return res.jobs;
-    }
+  /**
+   * Make API call with filter to get specific companies
+   *    Filters sent through query string params title
+   */
+  static async getSearchedJobs(searchTerm) {
+    let res = await this.request(`jobs?title=${searchTerm}`);
+    return res.jobs;
+  }
 
-    /**
-     * Make API call to /token and get token back
-     */
-    static async getLoggedInUserToken(formData){
-      let res = await this.request(`auth/token`, formData, "post");
-      return res.token;
-    }
+  /************************ USER  **************************/
 
-    /**
-     * Make API call to /register to create new user
-     */
-    static async getNewUserToken(formData){
-      let res = await this.request(`auth/register`, formData, "post");
-      return res.token;
-    }
+  /**
+   * Make API call to /token and get token back
+   */
+  static async getLoggedInUserToken(formData) {
+    let res = await this.request(`auth/token`, formData, "post");
+    return res.token;
+  }
 
-    /**
-     * Make API call to add applied jobs
-     */
+  /**
+   * Make API call to /register to create new user
+   */
+  static async getNewUserToken(formData) {
+    let res = await this.request(`auth/register`, formData, "post");
+    return res.token;
+  }
+
+  /**
+   * Make API call to get individual user data
+   */
+  static async getUserData(username) {
+    let res = await this.request(`users/${username}`);
+    return res;
+  }
+
+  /**
+   * Make API call to add applied jobs
+   */
 }
 
 export default JoblyApi;

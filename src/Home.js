@@ -1,5 +1,5 @@
 
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import userContext from "./userContext";
 
@@ -14,25 +14,25 @@ import userContext from "./userContext";
  */
 function Home() {
 
-  const { token, username } = useContext(userContext);
+  const { currUserData } = useContext(userContext);
 
-  return(
+  return (
     <div>
-      {token
+      {currUserData
         ? (
           <div className="Home-logged-in">
-            <h1>Welcome back, {username} </h1>
+            <h1>Welcome back, {currUserData.username} </h1>
           </div>
         ) : (
           <div className="Home">
-          <div className="Home-buttons">
-            <Link to="/login" className="btn btn-primary">Log In</Link>
-            <Link to="/signup" className="btn btn-primary">Signup</Link>
+            <div className="Home-buttons">
+              <Link to="/login" className="btn btn-primary">Log In</Link>
+              <Link to="/signup" className="btn btn-primary">Signup</Link>
+            </div>
           </div>
-        </div>
         )}
     </div>
-  )
+  );
 }
 
 export default Home;

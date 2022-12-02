@@ -2,7 +2,7 @@ import React from "react";
 import "./CompanyCard.css";
 
 /** Component for creating company card (Presentational)
- * 
+ *
  * Props: Company object like:
  *  { handle, name, description, numEmployees, logoUrl }
  *
@@ -10,18 +10,18 @@ import "./CompanyCard.css";
  *
  * RoutesList => CompaniesList => CompanyCard
  */
-function CompanyCard({company}) {
+function CompanyCard({ company }) {
 
 
   return (
     <div className="CompanyCard card mb-3">
       <div className="CompanyCard-row row g-0">
         <div className="CompanyCard-col col-md-4 my-auto">
-          <img className="CompanyCard-img img-fluid rounded-start" 
-                src={ company.logoUrl || "/logo192.png" } 
-                alt={ company.handle }/>
+          <img className="CompanyCard-img img-fluid rounded-start"
+            src={company.logoUrl || "/logo192.png"}
+            alt={company.handle} />
         </div>
-        <div className="col-md-8">
+        <div className="CommpanyCard col-md-8">
           <div className="CompanyCard card-body">
             <h3 className="CompanyCard card-title">{company.handle}</h3>
             <p className="CompanyCard card-text"><i>{company.description}</i></p>
@@ -30,7 +30,7 @@ function CompanyCard({company}) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 
