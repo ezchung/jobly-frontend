@@ -1,16 +1,17 @@
 import { useState } from "react";
+import ProfileForm from "./ProfileForm";
 
 /**
- * Props:
+ * Props: will get applied f'n from Jobly
  * 
- * State:
+ * State: 
  * 
  * { Nav, RoutesList } => Profile => { EditProfileForm }
  */
 function Profile() {
     return (
         <div className="Profile">
-            <p>Got to Profile</p>
+            <ProfileForm />
         </div>
     )
 }
