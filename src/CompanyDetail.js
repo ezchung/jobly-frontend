@@ -45,7 +45,7 @@ function CompanyDetail() {
       <div className="CompanyDetail-info">
         <div className="CompanyDetail-row row">
           <h1>{companyData.company.name}</h1>
-          <img src={companyData.company.logoUrl} alt={companyData.company.handle}/>
+          <img src={companyData.company.logoUrl  || "/logo192.png" } alt={companyData.company.handle}/>
         </div>
         <p>{companyData.company.description}</p>
         <p><b>Number of Employees:</b> {companyData.company.numEmployees}</p>

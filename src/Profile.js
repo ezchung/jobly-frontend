@@ -1,10 +1,18 @@
 import { useState } from "react";
 
 /**
+ * Props:
  * 
+ * State:
+ * 
+ * { Nav, RoutesList } => Profile => { EditProfileForm }
  */
-function Profile({executeSearch}) {
-
+function Profile() {
+    return (
+        <div className="Profile">
+            <p>Got to Profile</p>
+        </div>
+    )
 }
 
 

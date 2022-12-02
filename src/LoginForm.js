@@ -10,7 +10,7 @@ import userContext from "./userContext";
  * Returns --> if logged in: companies page
  * if not logged in: renders login form
  *
- * 
+ * { Nav, RoutesList } => LoginForm
  */
 function LoginForm({handleLogin}) {
     const initialFormData = {

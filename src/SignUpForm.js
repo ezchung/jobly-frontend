@@ -10,6 +10,7 @@ import userContext from "./userContext";
  * Returns --> if successful: companies page
  * if unsuccessful: re-render SignUpForm
  *
+ * { Nav, RoutesList } => SignUpForm
  */
 function SignUpForm({handleSignUp}) {
 

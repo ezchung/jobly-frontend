@@ -16,7 +16,15 @@ import JoblyApp from "./JoblyApp";
  *
  * @returns Routes to render components
  *
- * JoblyApp -> RoutesList -> { CompanyDetail, CompaniesList, JobsList, Home }
+ * JoblyApp 
+ *  -> RoutesList 
+ *    -> { CompanyDetail, 
+ *         CompaniesList, 
+ *         JobsList,
+ *         Home,
+ *         Profile, 
+ *         LoginForm , 
+ *         SignUpForm }
  */
 function RoutesList({handleLogin, handleSignUp}) {
   return (

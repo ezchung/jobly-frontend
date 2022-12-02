@@ -58,7 +58,7 @@ function Nav({logout}) {
             <li className="nav-link px-2 link-secondary">
               <NavLink
                 className={({ isActive }) => (isActive ? "nav active" : undefined)}
-                to={"/logout"} onClick={logout}
+                to={`/logout/${username}`} onClick={logout}
               >{`Logout ${username}`}
               </NavLink>
             </li>

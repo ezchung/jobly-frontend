@@ -44,7 +44,7 @@ function CompaniesList() {
       }
     }
 
-    if (companies.companiesList.length == 0 && !companies.isLoading) {
+    if (companies.companiesList.length === 0 && !companies.isLoading) {
       return (
         <div>There are no companies that match your search.</div>
       )
@@ -54,12 +54,13 @@ function CompaniesList() {
         <SearchForm executeSearch={searchCompany}/>
         <div className="CompaniesList row">
         {companies.companiesList.map(c => (
-            <div key={c.handle} className="CompaniesList col-md-4">
+            <div key={c.handle} className="CompaniesList-card col-md-4">
               <Link to={`/companies/${c.handle}`}
-                    className="CompaniesList"></Link>
-                <div className="CompaniesList" >
-                  < CompanyCard company={c} />
-                </div>
+                    className="CompaniesList">
+                  <div className="CompaniesList" >
+                    < CompanyCard company={c} />
+                  </div>
+                </Link>
             </div>
           ))}
         </div>
