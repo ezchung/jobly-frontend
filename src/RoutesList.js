@@ -11,14 +11,14 @@ import JoblyApp from "./JoblyApp";
 
 /** Component for managing routes
  * Props:
- * 
- * State: 
- * 
+ *
+ * State:
+ *
  * @returns Routes to render components
- * 
+ *
  * JoblyApp -> RoutesList -> { CompanyDetail, CompaniesList, JobsList, Home }
  */
-function RoutesList({handleLogin}) {
+function RoutesList({handleLogin, handleSignUp}) {
   return (
     <Routes>
       <Route path="/companies/:name" element={<CompanyDetail />} />
@@ -26,8 +26,8 @@ function RoutesList({handleLogin}) {
       <Route path="/jobs" element={<JobsList />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<LoginForm handleLogin={handleLogin}/>} />
-      <Route path="/signup" element={<SignUpForm />} />
-      <Route path="/" element={<Home />} /> 
+      <Route path="/signup" element={<SignUpForm handleSignUp={handleSignUp}/>} />
+      <Route path="/" element={<Home />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   )

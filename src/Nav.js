@@ -28,13 +28,13 @@ function Nav({logout}) {
     >
       <img className="jobly-logo bi me-2" src="/logo192.png" alt="Jobly Logo" />
     </NavLink>
-    {token 
+    {token
       ? (
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0" >
             <li className="nav-link px-2 link-secondary">
               <NavLink
                 className={({ isActive }) => (isActive ? "nav active" : undefined)}
-                to={"/companies"} 
+                to={"/companies"}
               >Companies
               </NavLink>
             </li>
@@ -69,7 +69,7 @@ function Nav({logout}) {
           <li className="nav-link px-2 link-secondary">
             <NavLink
               className={({ isActive }) => (isActive ? "nav active" : undefined)}
-              to={"/login"} 
+              to={"/login"}
             >Login
             </NavLink>
           </li>

@@ -55,8 +55,8 @@ function CompaniesList() {
         <div className="CompaniesList row">
         {companies.companiesList.map(c => (
             <div key={c.handle} className="CompaniesList col-md-4">
-              <Link to={`/companies/${c.handle}`} 
-                    className="CompaniesList stretched-link"></Link>
+              <Link to={`/companies/${c.handle}`}
+                    className="CompaniesList"></Link>
                 <div className="CompaniesList" >
                   < CompanyCard company={c} />
                 </div>

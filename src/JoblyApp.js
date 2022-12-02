@@ -27,22 +27,32 @@ function JoblyApp() {
     function logout(){
         setUserData(initialData);
     }
-    
+
     //Function for login etc.
     async function handleLogin(formData){
         const { username } = formData;
         const token = await JoblyApi.getLoggedInUserToken(formData);
-        console.log(userData, "<--------------------- userData after login")
-        setUserData((user) => ({token:token, username:username,...userData }));
+        JoblyApi.token = token;
+
+        setUserData({...userData, token:token, username:username });
+    }
+
+    async function handleSignUp(formData){
+        const token = await JoblyApi.getNewUserToken(formData);
+        const { username } = formData;
+        setUserData({...userData, token: token, username: username})
+        JoblyApi.token = token;
     }
 
     return (
         <div className="JoblyApp">
-            <userContext.Provider value={{token : userData.token}}>
+            <userContext.Provider value={{token : userData.token, username: userData.username}}>
                 <div className="container">
                         <BrowserRouter>
                             <Nav logout={logout}/>
-                            <RoutesList handleLogin={handleLogin}/>
+                            <RoutesList
+                                handleLogin={handleLogin}
+                                handleSignUp={handleSignUp}/>
                         </BrowserRouter>
                 </div>
             </userContext.Provider>
