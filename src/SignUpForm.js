@@ -13,7 +13,7 @@ import userContext from "./userContext";
  * { Nav, RoutesList } => SignUpForm
  */
 function SignUpForm({ handleSignUp }) {
-
+    //TODO: Add error state and check if sign up form is valid
     const initialFormData = {
         username: "",
         password: "",

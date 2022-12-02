@@ -59,7 +59,7 @@ function LoginForm({ handleLogin }) {
         }
     }
 
-    //TODO: if errors in state is not null, map over and display alert component (messages arr, type) (or p tag)
+    //FIXME: if errors in state is not null, map over and display alert component (messages arr, type) (or p tag)
     return (
         <div>
             {currUserData
