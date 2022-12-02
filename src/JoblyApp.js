@@ -9,7 +9,12 @@ import userContext from "./userContext";
  *
  * Prop: None
  *
- * State: None //TODO: docstring
+ * State: 
+ *      initialData = {
+ *          currUserData : null || {},
+ *          isLoading : bool
+ *      }
+ *      token = null || ""
  *
  * @returns JoblyApp Component
  *
@@ -18,8 +23,8 @@ import userContext from "./userContext";
 function JoblyApp() {
     const initialData = {
         //{currUserData: null (replaced with object after interaction with API, getting user data), *LoadingState: true, }
-        userJobs : [],
-        username: ""
+        currUserData: null,
+        isLoading : false
     }
 
     const [token, setToken] =useState(null);
@@ -27,8 +32,8 @@ function JoblyApp() {
     const [userData, setUserData] = useState(initialData);
 
     function logout(){
-        setUserData(initialData); //TODO: clear out joblyApi token
-        
+        setUserData(initialData);
+        JoblyApi.token = null;
     }
     //TODO: using useEffect listening for change to token. 
     //Currently only hanging on to token. *With jobs, will want to fetch
