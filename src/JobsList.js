@@ -42,7 +42,7 @@ function JobsList() {
         }
     }
 
-    if (jobsList.jobs.length == 0 && !jobsList.isLoading) {
+    if (jobsList.jobs.length === 0 && !jobsList.isLoading) {
         return (
             <div>There are no jobs that match your search.</div>
         )

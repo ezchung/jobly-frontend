@@ -5,7 +5,7 @@ import userContext from "./userContext";
 
 /** Component for navigation bar
  *
- * Props: //TODO: logout function
+ * Props: logout f'n from parent 
  *
  * State: None
  *
@@ -17,8 +17,6 @@ import userContext from "./userContext";
  */
 function Nav({ logout }) {
   const { currUserData } = useContext(userContext);
-
-  //TODO: move isActive to css
 
   return (
     <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -37,45 +35,25 @@ function Nav({ logout }) {
       {currUserData ? (
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li className="nav-link px-2 link-secondary">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "nav active" : undefined
-              }
-              to={"/companies"}
-            >
+            <NavLink to={"/companies"}>
               Companies
             </NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "nav active" : undefined
-              }
-              to={"/jobs"}
-            >
+            <NavLink to={"/jobs"} >
               Jobs
             </NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "nav active" : undefined
-              }
-              to={"/Profile"}
-            >
+            <NavLink to={"/Profile"} >
               Profile
             </NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "nav active" : undefined
-              }
-              onClick={logout}
-            >
+            <NavLink onClick={logout} >
               {`Logout ${currUserData.username}`}
             </NavLink>
           </li>
@@ -83,23 +61,13 @@ function Nav({ logout }) {
       ) : (
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li className="nav-link px-2 link-secondary">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "nav active" : undefined
-              }
-              to={"/login"}
-            >
+            <NavLink to={"/login"} >
               Login
             </NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "nav active" : undefined
-              }
-              to={"/signup"}
-            >
+            <NavLink to={"/signup"} >
               Sign Up
             </NavLink>
           </li>

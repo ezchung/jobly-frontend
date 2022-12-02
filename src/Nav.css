@@ -4,3 +4,7 @@
 }
 
 /* /* .nav-link:active -->  */
+.nav-link-navlink:active{
+  color: white;
+}
+/* FIXME: Took out isActive = nav active. Nothing happening rn */

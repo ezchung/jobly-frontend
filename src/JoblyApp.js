@@ -11,7 +11,7 @@ import jwt_decode from "jwt-decode";
  * Prop: None
  *
  * State:
- *      initialData = {
+ *      userData = {
  *          currUserData : null || {},
  *          isLoading : bool
  *      }
@@ -67,10 +67,11 @@ function JoblyApp() {
 
     /** Handles user logout. Resets userData in state to initial data and
      *  resets the token.
-     */ //TODO: //update token in state
+     */ 
     function logout() {
         setUserData(initialData);
         JoblyApi.token = null;
+        setToken(null);
     }
 
     return (

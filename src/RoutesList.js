@@ -14,6 +14,8 @@ import SignUpForm from "./SignUpForm";
  * Props:  handleLogin(), handleSignUp()
  *
  * State:
+ * 
+ * Context: currUserData
  *
  * @returns Routes to render components
  *
@@ -58,5 +60,3 @@ function RoutesList({ handleLogin, handleSignUp }) {
 
 
 export default RoutesList;
-
-//TODO: call logged out function
