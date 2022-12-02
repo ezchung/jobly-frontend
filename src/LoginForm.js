@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext} from "react";
 import { Navigate } from "react-router-dom";
 import userContext from "./userContext";
 
@@ -18,10 +18,19 @@ function LoginForm({ handleLogin }) {
         password: ""
     };
 
+    //Loading exists currently for potential addition but not utilized rn FIXME: 
+    const initialFormCheck = {
+        error : null,
+        isLoading : true
+    }
+
     const [formData, setFormData] = useState(initialFormData);
+    const [formErrorAndLoad, setFormErrorAndLoad] = useState(initialFormCheck);
 
     const { currUserData } = useContext(userContext);
 
+    // original plan was to useEffect for change but formData is constantly changing and error message would show in the beginning
+    //This can be part of search function. While searching, utilize useEffect to check and show wanted companies that align with search
 
     /** Handles the user input of the user login form. Saves data in state */
     function handleChange(evt) {
@@ -36,21 +45,21 @@ function LoginForm({ handleLogin }) {
      *  handleLogin(), passing in the form data.
     */
     async function handleSubmit(evt) {
-        //TODO: try-catch (await) --> joblyAPI - what gets returned on a bad request? access and display errors?
+        //: try-catch (await) --> joblyAPI - what gets returned on a bad request? access and display errors?
         //errors in state?
         evt.preventDefault();
 
         try {
             await handleLogin(formData);
+            setFormErrorAndLoad({isLoading: false, error: null});
         } catch (error) {
             console.log("ERROR ---->", error);
             //add errors to state, if errors is not null
+            setFormErrorAndLoad({isLoading: false, error: error});
         }
-
     }
 
-    //TODO: What happens if we login and the password is wrong. Displaying message.
-    // if errors in state is not null, map over and display alert component (messages arr, type) (or p tag)
+    //TODO: if errors in state is not null, map over and display alert component (messages arr, type) (or p tag)
     return (
         <div>
             {currUserData
@@ -80,6 +89,10 @@ function LoginForm({ handleLogin }) {
                                 aria-label="PasswordInput"
                                 type="password">
                             </input>
+                            {formErrorAndLoad.error 
+                                ? <p>{formErrorAndLoad.error}</p> 
+                                : console.log(formErrorAndLoad, "error does not exist") 
+                            }
                             <button className="LoginForm-btn">Submit</button>
                         </div>
                     </form>
