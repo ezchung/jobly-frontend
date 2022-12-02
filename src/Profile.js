@@ -8,10 +8,10 @@ import ProfileForm from "./ProfileForm";
  * 
  * { Nav, RoutesList } => Profile => { EditProfileForm }
  */
-function Profile() {
+function Profile({handleProfileEdit}) {
     return (
         <div className="Profile">
-            <ProfileForm />
+            <ProfileForm handleProfileEdit={handleProfileEdit}/>
         </div>
     )
 }

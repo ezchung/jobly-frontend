@@ -16,21 +16,25 @@ import userContext from "./userContext";
  *              if unsuccessful, render error component
  * 
  * Profile -> ProfileForm -> { ErrorMsg }
- */ //TODO: connect function to ProfileForm
-function ProfileForm({handleEdit}) {
+ */ 
+function ProfileForm({handleProfileEdit}) {
     const { currUserData } = useContext(userContext)
-    console.log(currUserData, "<---------- in profileForm")
+    // console.log(currUserData, "<---------- in profileForm")
     const initialFormData = {
-        username: currUserData.username,
         firstName: currUserData.firstName,
         lastName: currUserData.lastName,
         email: currUserData.email
     };
 
-    const [formData, setFormData] = useState(initialFormData);
-    const [error, setError] = useState(null);
+    const initialFormCheck = {
+        error : null,
+        isLoading : null
+    }
 
-    console.log("ProfileForm State -------> ", formData);
+    const [formData, setFormData] = useState(initialFormData);
+    const [formErrorAndLoad, setFormErrorAndLoad] = useState(initialFormCheck);
+
+    // console.log("ProfileForm State -------> ", formData);
 
     function handleChange(evt){
         const { name, value } = evt.target;
@@ -42,12 +46,26 @@ function ProfileForm({handleEdit}) {
 
     async function handleSubmit(evt){
         evt.preventDefault();
+        setFormErrorAndLoad({...formErrorAndLoad, isLoading:true});
         try{
-            await handleEdit(formData);
-            setError(null);
+            await handleProfileEdit(formData);
+            setFormErrorAndLoad({isLoading: false, error: null});
         } catch(error) {
             console.log("ERROR with profile ----> ", error);
-            setError(error)
+            setFormErrorAndLoad({isLoading: false, error: error});
+        }
+    }
+
+    function showStatus(){
+        console.log(formErrorAndLoad, "<----- in showStatus")
+        if(formErrorAndLoad.isLoading === true){
+            return "Loading..."
+        }else if(formErrorAndLoad.isLoading === null){
+            return;
+        } else if(formErrorAndLoad.isLoading === false && !formErrorAndLoad.error){
+            return "Successful Change"
+        } else{
+            return;
         }
     }
 
@@ -56,11 +74,10 @@ function ProfileForm({handleEdit}) {
             <div className="ProfileForm-div">
                 <input
                     id="ProfileForm-username"
-                    name="username"
                     className="form-control"
                     placeholder="Enter username..."
                     onChange={handleChange}
-                    value={formData.username}
+                    value={currUserData.username}
                     aria-label="UsernameInput"
                     readOnly>
                 </input>
@@ -91,6 +108,13 @@ function ProfileForm({handleEdit}) {
                     value={formData.email}
                     aria-label="emailInput">
                 </input>
+                {showStatus() ? <p>{showStatus()}</p> : <></>}
+                {formErrorAndLoad.error && (formErrorAndLoad.isLoading === false)
+                    ? formErrorAndLoad.error.map((e,idx) =>
+                        <p key={idx}>{e}</p>
+                        )
+                    : console.log(formErrorAndLoad, "error does not exist") 
+                }
                 <button>Make Change</button>
             </div>
         </form>

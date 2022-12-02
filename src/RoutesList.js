@@ -29,7 +29,7 @@ import SignUpForm from "./SignUpForm";
  *         LoginForm ,
  *         SignUpForm }
  */
-function RoutesList({ handleLogin, handleSignUp }) {
+function RoutesList({ handleLogin, handleSignUp, handleProfileEdit }) {
 
   const { currUserData } = useContext(userContext);
 
@@ -41,7 +41,7 @@ function RoutesList({ handleLogin, handleSignUp }) {
             <Route path="/companies/:name" element={<CompanyDetail />} />
             <Route path="/companies" element={<CompaniesList />} />
             <Route path="/jobs" element={<JobsList />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile handleProfileEdit={handleProfileEdit}/>} />
           </>
         ) : (
           <>

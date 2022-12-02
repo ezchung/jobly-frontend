@@ -67,9 +67,11 @@ function JoblyApp() {
 
     /** Handle profile patch. Get formData
      */
-    async function handleEdit(formData){
-        const edit = await JoblyApi.patchUserData(formData);
-    }
+    async function handleProfileEdit(formData){
+        const edit = await JoblyApi.patchUserData(formData, userData.currUserData.username);
+        const updatedUserData = {...userData.currUserData, ...edit.user}
+        setUserData({...userData, currUserData: updatedUserData})
+    } 
 
     /** Handles user logout. Resets userData in state to initial data and
      *  resets the token.
@@ -88,7 +90,8 @@ function JoblyApp() {
                         <Nav logout={logout} />
                         <RoutesList
                             handleLogin={handleLogin}
-                            handleSignUp={handleSignUp} />
+                            handleSignUp={handleSignUp} 
+                            handleProfileEdit={handleProfileEdit}/>
                     </BrowserRouter>
                 </div>
             </userContext.Provider>

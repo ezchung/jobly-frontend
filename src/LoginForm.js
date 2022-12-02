@@ -18,10 +18,9 @@ function LoginForm({ handleLogin }) {
         password: ""
     };
 
-    //Loading exists currently for potential addition but not utilized rn FIXME: 
     const initialFormCheck = {
         error : null,
-        isLoading : true
+        isLoading : null
     }
 
     const [formData, setFormData] = useState(initialFormData);
@@ -48,12 +47,13 @@ function LoginForm({ handleLogin }) {
         //: try-catch (await) --> joblyAPI - what gets returned on a bad request? access and display errors?
         //errors in state?
         evt.preventDefault();
-
+        
+        setFormErrorAndLoad({...formErrorAndLoad, isLoading:true});
         try {
             await handleLogin(formData);
             setFormErrorAndLoad({isLoading: false, error: null});
         } catch (error) {
-            console.log("ERROR ---->", error);
+            console.log("ERROR Login form ---->", error);
             //add errors to state, if errors is not null
             setFormErrorAndLoad({isLoading: false, error: error});
         }
@@ -89,8 +89,14 @@ function LoginForm({ handleLogin }) {
                                 aria-label="PasswordInput"
                                 type="password">
                             </input>
-                            {formErrorAndLoad.error 
-                                ? <p>{formErrorAndLoad.error}</p> 
+                            {formErrorAndLoad.isLoading
+                                ? <p>Loading...</p> 
+                                : console.log(formErrorAndLoad, "is already loaded") 
+                            }
+                            {formErrorAndLoad.error && (formErrorAndLoad.isLoading === false)
+                                ? formErrorAndLoad.error.map((e,idx) =>
+                                    <p key={idx}>{e}</p>
+                                    )
                                 : console.log(formErrorAndLoad, "error does not exist") 
                             }
                             <button className="LoginForm-btn">Submit</button>

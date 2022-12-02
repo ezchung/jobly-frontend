@@ -22,7 +22,7 @@ function JobsList() {
     }
     const [jobsList, setJobsList] = useState(initialData);
 
-    console.log("JobsList State -----------> ", jobsList);
+    // console.log("JobsList State -----------> ", jobsList);
 
     useEffect(function getAllJobsData() {
         async function getAllJobsFromApi(){

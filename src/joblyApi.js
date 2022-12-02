@@ -114,8 +114,7 @@ class JoblyApi {
   /**
    * Make API call to add applied jobs
    */
-  static async patchUserData(formData){
-    const { username } = formData
+  static async patchUserData(formData, username){
     console.log(username, "<------- username");
     let res = await this.request(`users/${username}`, formData, "patch");
     console.log(res, "<------- patchUserData");

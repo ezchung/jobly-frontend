@@ -22,14 +22,19 @@ function SignUpForm({ handleSignUp }) {
         email: ""
     };
 
+    const initialFormCheck = {
+        error : null,
+        isLoading : null
+    }
+
     const [formData, setFormData] = useState(initialFormData);
+    const [formErrorAndLoad, setFormErrorAndLoad] = useState(initialFormCheck);
 
     const { currUserData } = useContext(userContext);
 
     /** Handles the user input of the user registration form. Saves data in state */
     function handleChange(evt) {
         const { name, value } = evt.target;
-
         setFormData((currData) => {
             currData[name] = value;
             return { ...currData };
@@ -40,9 +45,16 @@ function SignUpForm({ handleSignUp }) {
     /** Handles submission of user registration form. Calls parent function
      *  handleSignUp(), passing in the form data.
      */
-    function handleSubmit(evt) {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        handleSignUp(formData);
+        setFormErrorAndLoad({...formErrorAndLoad, isLoading:true});
+        try{
+            await handleSignUp(formData);
+            setFormErrorAndLoad({isLoading: false, error: null});
+        }catch (error) {
+            console.log("ERROR Signup form---->", error);
+            setFormErrorAndLoad({isLoading: false, error: error});
+        }
     }
 
     return (
@@ -100,6 +112,16 @@ function SignUpForm({ handleSignUp }) {
                                 value={formData.email}
                                 aria-label="emailInput">
                             </input>
+                            {formErrorAndLoad.isLoading
+                                ? <p>Loading...</p> 
+                                : null
+                            }
+                            {formErrorAndLoad.error && (formErrorAndLoad.isLoading === false)
+                                ? formErrorAndLoad.error.map((e,idx) =>
+                                    <p key={idx}>{e}</p>
+                                    )
+                                : null
+                            }
                             <button className="SignUpForm-btn btn btn-primary">Sign Up</button>
                         </form>
                     </div>
