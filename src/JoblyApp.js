@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import JoblyApi from "./joblyApi";
 import Nav from "./Nav";
@@ -9,7 +9,7 @@ import userContext from "./userContext";
  *
  * Prop: None
  *
- * State: None
+ * State: None //TODO: docstring
  *
  * @returns JoblyApp Component
  *
@@ -17,18 +17,25 @@ import userContext from "./userContext";
  */
 function JoblyApp() {
     const initialData = {
-        token : null,
+        //{currUserData: null (replaced with object after interaction with API, getting user data), *LoadingState: true, }
         userJobs : [],
         username: ""
     }
 
+    const [token, setToken] =useState(null);
+
     const [userData, setUserData] = useState(initialData);
 
     function logout(){
-        setUserData(initialData);
+        setUserData(initialData); //TODO: clear out joblyApi token
+        
     }
-
+    //TODO: using useEffect listening for change to token. 
+    //Currently only hanging on to token. *With jobs, will want to fetch
     //Function for login etc.
+    //FIXME: inside of effect listening for token change, make fetch for user. if done, can move logic of line 34 and 42 into one. Can decode token and backend has username in payload
+    useEffect(await JoblyApi.getUser, [token])
+
     async function handleLogin(formData){
         const { username } = formData;
         const token = await JoblyApi.getLoggedInUserToken(formData);
@@ -43,10 +50,10 @@ function JoblyApp() {
         setUserData({...userData, token: token, username: username})
         JoblyApi.token = token;
     }
-
+//TODO: with currentContext can change context to currUserData : userData.currUserData. Can take out token (already saved in JoblyApi) 
     return (
         <div className="JoblyApp">
-            <userContext.Provider value={{token : userData.token, username: userData.username}}>
+            <userContext.Provider value={{token : token, username: currUserData.username}}> 
                 <div className="container">
                         <BrowserRouter>
                             <Nav logout={logout}/>
