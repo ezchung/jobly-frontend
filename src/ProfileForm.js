@@ -61,7 +61,8 @@ function ProfileForm({handleEdit}) {
                     placeholder="Enter username..."
                     onChange={handleChange}
                     value={formData.username}
-                    aria-label="UsernameInput">
+                    aria-label="UsernameInput"
+                    readOnly>
                 </input>
                 <input
                     id="ProfileForm-firstName"

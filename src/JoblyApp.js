@@ -65,6 +65,12 @@ function JoblyApp() {
         setToken(token);
     }
 
+    /** Handle profile patch. Get formData
+     */
+    async function handleEdit(formData){
+        const edit = await JoblyApi.patchUserData(formData);
+    }
+
     /** Handles user logout. Resets userData in state to initial data and
      *  resets the token.
      */ 
