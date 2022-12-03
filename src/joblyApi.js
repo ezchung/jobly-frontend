@@ -92,6 +92,7 @@ class JoblyApi {
    */
   static async getLoggedInUserToken(formData) {
     let res = await this.request(`auth/token`, formData, "post");
+    this.token = res.token;
     return res.token;
   }
 
@@ -100,6 +101,7 @@ class JoblyApi {
    */
   static async getNewUserToken(formData) {
     let res = await this.request(`auth/register`, formData, "post");
+    this.token = res.token;
     return res.token;
   }
 
@@ -114,10 +116,8 @@ class JoblyApi {
   /**
    * Make API call to add applied jobs
    */
-  static async patchUserData(formData, username){
-    console.log(username, "<------- username");
+  static async patchUserData(formData, username) {
     let res = await this.request(`users/${username}`, formData, "patch");
-    console.log(res, "<------- patchUserData");
     return res;
   }
 }

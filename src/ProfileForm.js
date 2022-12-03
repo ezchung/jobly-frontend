@@ -2,23 +2,23 @@ import { useState, useContext } from "react";
 import userContext from "./userContext";
 
 /**
- * Props: 
+ * Props:
  *      handleEdit: f'n from Jobly
- * 
+ *
  * State:
  *      formData: { username, password, firstName, lastName, email }
  *      error
- * 
- * Context: 
+ *
+ * Context:
  *      userData
- * 
+ *
  * Returns ---> if successful, Profile with ProfileForm with changes made
  *              if unsuccessful, render error component
- * 
+ *
  * Profile -> ProfileForm -> { ErrorMsg }
- */ 
-function ProfileForm({handleProfileEdit}) {
-    const { currUserData } = useContext(userContext)
+ */
+function ProfileForm({ handleProfileEdit }) {
+    const { currUserData } = useContext(userContext);
     // console.log(currUserData, "<---------- in profileForm")
     const initialFormData = {
         firstName: currUserData.firstName,
@@ -27,16 +27,16 @@ function ProfileForm({handleProfileEdit}) {
     };
 
     const initialFormCheck = {
-        error : null,
-        isLoading : null
-    }
+        error: null,
+        isLoading: null
+    };
 
     const [formData, setFormData] = useState(initialFormData);
     const [formErrorAndLoad, setFormErrorAndLoad] = useState(initialFormCheck);
 
     // console.log("ProfileForm State -------> ", formData);
 
-    function handleChange(evt){
+    function handleChange(evt) {
         const { name, value } = evt.target;
         setFormData((currData) => {
             currData[name] = value;
@@ -44,32 +44,34 @@ function ProfileForm({handleProfileEdit}) {
         });
     }
 
-    async function handleSubmit(evt){
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        setFormErrorAndLoad({...formErrorAndLoad, isLoading:true});
-        try{
+        setFormErrorAndLoad({ ...formErrorAndLoad, isLoading: true });
+        //TODO: Change isLoading to isSaving
+        try {
             await handleProfileEdit(formData);
-            setFormErrorAndLoad({isLoading: false, error: null});
-        } catch(error) {
+            setFormErrorAndLoad({ isLoading: false, error: null });
+        } catch (error) {
             console.log("ERROR with profile ----> ", error);
-            setFormErrorAndLoad({isLoading: false, error: error});
+            setFormErrorAndLoad({ isLoading: false, error: error });
         }
     }
 
-    function showStatus(){
-        console.log(formErrorAndLoad, "<----- in showStatus")
-        if(formErrorAndLoad.isLoading === true){
-            return "Loading..."
-        }else if(formErrorAndLoad.isLoading === null){
+    function showStatus() {
+        console.log(formErrorAndLoad, "<----- in showStatus");
+        if (formErrorAndLoad.isLoading === true) {
+            return "Loading...";
+        } else if (formErrorAndLoad.isLoading === null) {
             return;
-        } else if(formErrorAndLoad.isLoading === false && !formErrorAndLoad.error){
-            return "Successful Change"
-        } else{
+        } else if (formErrorAndLoad.isLoading === false && !formErrorAndLoad.error) {
+            //TODO: move paragraph tags into return statements and simplify ternary
+            return "Successful Change";
+        } else {
             return;
         }
     }
 
-    return(
+    return (
         <form className="ProfileForm-form" onSubmit={handleSubmit}>
             <div className="ProfileForm-div">
                 <input
@@ -109,17 +111,19 @@ function ProfileForm({handleProfileEdit}) {
                     aria-label="emailInput">
                 </input>
                 {showStatus() ? <p>{showStatus()}</p> : <></>}
+
                 {formErrorAndLoad.error && (formErrorAndLoad.isLoading === false)
-                    ? formErrorAndLoad.error.map((e,idx) =>
+                    ? formErrorAndLoad.error.map((e, idx) =>
                         <p key={idx}>{e}</p>
-                        )
-                    : console.log(formErrorAndLoad, "error does not exist") 
+                    )
+                    : console.log(formErrorAndLoad, "error does not exist")
                 }
                 <button>Make Change</button>
             </div>
         </form>
-    )
-
+    );
+    //TODO: change isLoading to "savingStatus", change value
+    //type to string
 }
 
 
