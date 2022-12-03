@@ -28,13 +28,11 @@ function ProfileForm({ handleProfileEdit }) {
 
     const initialFormCheck = {
         error: null,
-        isLoading: null
+        savingStatus: null
     };
 
     const [formData, setFormData] = useState(initialFormData);
     const [formErrorAndLoad, setFormErrorAndLoad] = useState(initialFormCheck);
-
-    // console.log("ProfileForm State -------> ", formData);
 
     function handleChange(evt) {
         const { name, value } = evt.target;
@@ -46,28 +44,25 @@ function ProfileForm({ handleProfileEdit }) {
 
     async function handleSubmit(evt) {
         evt.preventDefault();
-        setFormErrorAndLoad({ ...formErrorAndLoad, isLoading: true });
-        //TODO: Change isLoading to isSaving
+        setFormErrorAndLoad({ ...formErrorAndLoad, savingStatus: "saving" });
         try {
             await handleProfileEdit(formData);
-            setFormErrorAndLoad({ isLoading: false, error: null });
+            setFormErrorAndLoad({ savingStatus: "notSaving", error: null });
         } catch (error) {
             console.log("ERROR with profile ----> ", error);
-            setFormErrorAndLoad({ isLoading: false, error: error });
+            setFormErrorAndLoad({ savingStatus: "notSaving", error: error });
         }
     }
 
     function showStatus() {
-        console.log(formErrorAndLoad, "<----- in showStatus");
-        if (formErrorAndLoad.isLoading === true) {
-            return "Loading...";
-        } else if (formErrorAndLoad.isLoading === null) {
+        if (formErrorAndLoad.savingStatus === "saving") {
+            return <p>"Loading..."</p>;
+        } else if (formErrorAndLoad.savingStatus === null) {
             return;
-        } else if (formErrorAndLoad.isLoading === false && !formErrorAndLoad.error) {
-            //TODO: move paragraph tags into return statements and simplify ternary
-            return "Successful Change";
+        } else if (formErrorAndLoad.savingStatus === "notSaving" && !formErrorAndLoad.error) {
+            return <p>"Successful Change"</p>;
         } else {
-            return;
+            return null;
         }
     }
 
@@ -110,9 +105,9 @@ function ProfileForm({ handleProfileEdit }) {
                     value={formData.email}
                     aria-label="emailInput">
                 </input>
-                {showStatus() ? <p>{showStatus()}</p> : <></>}
+                {showStatus()}
 
-                {formErrorAndLoad.error && (formErrorAndLoad.isLoading === false)
+                {formErrorAndLoad.error && (formErrorAndLoad.savingStatus === "notSaving")
                     ? formErrorAndLoad.error.map((e, idx) =>
                         <p key={idx}>{e}</p>
                     )
@@ -122,8 +117,6 @@ function ProfileForm({ handleProfileEdit }) {
             </div>
         </form>
     );
-    //TODO: change isLoading to "savingStatus", change value
-    //type to string
 }
 
 

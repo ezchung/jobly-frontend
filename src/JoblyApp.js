@@ -13,9 +13,9 @@ import jwt_decode from "jwt-decode";
  * State:
  *      userData = {
  *          currUserData : null || {},
- *          isLoading : bool
+ *          waitingForLoginInfo : bool
  *      }
- *      token = null || ""
+ *
  *
  * @returns JoblyApp Component
  *
@@ -23,14 +23,12 @@ import jwt_decode from "jwt-decode";
  */
 function JoblyApp() {
 
-    //TODO: needs better name - initialUserDataState
-    const initialData = {
+    const initialUserDataState = {
         currUserData: null,
-        isLoading: true
+        waitingForLoginInfo: true
     };
 
-    const [userData, setUserData] = useState(initialData);
-    console.log("JoblyApp userData state ---> ", userData);
+    const [userData, setUserData] = useState(initialUserDataState);
 
     /** Upon refresh or reload, we check user's local storage for token. If token exists,
      * user data is gotten from API and we re-set the token.
@@ -40,34 +38,22 @@ function JoblyApp() {
         async function getUserData() {
             if (tokenFromLocal) {
                 await getUserDataFromApi(tokenFromLocal);
+                // setUserData({ ...userData, waitingForLoginInfo: false });
             } else {
-                setUserData({ currUserData: null, isLoading: false });
+                setUserData({ currUserData: null, waitingForLoginInfo: false });
             }
         }
         getUserData();
     }, []);
 
-    //TODO: isLoading --> waitingForLoginInfo
-
-    /** Upon token change in state, gets user data from API request
-     *  assigns user data to state and sets isLoading to false.
-     */
-    // useEffect(function getUserData() {
-    //     if (token) {
-
-    //         getUserDataFromApi(token);
-    //     } else {
-    //         setUserData({ currUserData: null, isLoading: true });
-    //         JoblyApi.token = null;
-    //     }
-    // }, [token]);
-
     async function getUserDataFromApi(token) {
+
         const payload = jwt_decode(token);
-        JoblyApi.token = token;  //TODO: Move to JoblyApi
         localStorage.setItem('token', JSON.stringify(token));
-        const userDataFromApi = await JoblyApi.getUserData(payload.username);
-        setUserData({ isLoading: false, currUserData: userDataFromApi.user });
+
+        const userDataFromApi = await JoblyApi.getUserData(payload.username, token);
+
+        setUserData({ waitingForLoginInfo: false, currUserData: userDataFromApi.user });
     }
 
     /** Handles user login. Gets user token from API call and sets token
@@ -89,22 +75,24 @@ function JoblyApp() {
      */
     async function handleProfileEdit(formData) {
         const edit = await JoblyApi.patchUserData(formData, userData.currUserData.username);
-        const updatedUserData = { ...userData.currUserData, ...edit.user };
-        setUserData({ ...userData, currUserData: updatedUserData });
-    } //TODO: figure out callback pattern for setters //just make isLoading: false
+        setUserData((currData) =>
+        ({
+            waitingForLoginInfo: false,
+            currUserData: { ...currData.currUserData, ...edit.user }
+        }));
+        console.log("userData after setting --->", userData);
+    }
 
     /** Handles user logout. Resets userData in state to initial data and
      *  resets the token.
      */
-    function logout() {  //TODO: Change to handleLogout
-        setUserData({ currUserData: null, isLoading: false });
+    function handleLogout() {
+        setUserData({ currUserData: null, waitingForLoginInfo: false });
         JoblyApi.token = null;
-        // setToken(null);
         localStorage.clear();
-        // setLoggedIn(false);
     }
 
-    if (userData.isLoading) {
+    if (userData.waitingForLoginInfo) {
         return (
             <p>Loading...</p>
         );
@@ -115,7 +103,7 @@ function JoblyApp() {
             <userContext.Provider value={{ currUserData: userData.currUserData }}>
                 <div className="container">
                     <BrowserRouter>
-                        <Nav logout={logout} />
+                        <Nav handleLogout={handleLogout} />
                         <RoutesList
                             handleLogin={handleLogin}
                             handleSignUp={handleSignUp}

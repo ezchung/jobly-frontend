@@ -5,7 +5,7 @@ import userContext from "./userContext";
 
 /** Component for navigation bar
  *
- * Props: logout f'n from parent 
+ * Props: logout f'n from parent
  *
  * State: None
  *
@@ -15,7 +15,7 @@ import userContext from "./userContext";
  *
  * App -> Nav
  */
-function Nav({ logout }) {
+function Nav({ handleLogout }) {
   const { currUserData } = useContext(userContext);
 
   return (
@@ -35,25 +35,19 @@ function Nav({ logout }) {
       {currUserData ? (
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li className="nav-link px-2 link-secondary">
-            <NavLink to={"/companies"}>
-              Companies
-            </NavLink>
+            <NavLink to={"/companies"}>Companies</NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink to={"/jobs"} >
-              Jobs
-            </NavLink>
+            <NavLink to={"/jobs"}>Jobs</NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink to={"/Profile"} >
-              Profile
-            </NavLink>
+            <NavLink to={"/Profile"}>Profile</NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink onClick={logout} >
+            <NavLink onClick={handleLogout}>
               {`Logout ${currUserData.username}`}
             </NavLink>
           </li>
@@ -61,15 +55,11 @@ function Nav({ logout }) {
       ) : (
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li className="nav-link px-2 link-secondary">
-            <NavLink to={"/login"} >
-              Login
-            </NavLink>
+            <NavLink to={"/login"}>Login</NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink to={"/signup"} >
-              Sign Up
-            </NavLink>
+            <NavLink to={"/signup"}>Sign Up</NavLink>
           </li>
         </ul>
       )}

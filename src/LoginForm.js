@@ -47,7 +47,7 @@ function LoginForm({ handleLogin }) {
         //: try-catch (await) --> joblyAPI - what gets returned on a bad request? access and display errors?
         //errors in state?
         evt.preventDefault();
-        
+        console.log("Got into Login handleSubmit ")
         setFormErrorAndLoad({...formErrorAndLoad, isLoading:true});
         try {
             await handleLogin(formData);
@@ -57,6 +57,8 @@ function LoginForm({ handleLogin }) {
             //add errors to state, if errors is not null
             setFormErrorAndLoad({isLoading: false, error: error});
         }
+
+
     }
 
     //FIXME: if errors in state is not null, map over and display alert component (messages arr, type) (or p tag)
@@ -90,14 +92,14 @@ function LoginForm({ handleLogin }) {
                                 type="password">
                             </input>
                             {formErrorAndLoad.isLoading
-                                ? <p>Loading...</p> 
-                                : console.log(formErrorAndLoad, "is already loaded") 
+                                ? <p>Loading...</p>
+                                : console.log(formErrorAndLoad, "is already loaded")
                             }
                             {formErrorAndLoad.error && (formErrorAndLoad.isLoading === false)
                                 ? formErrorAndLoad.error.map((e,idx) =>
                                     <p key={idx}>{e}</p>
                                     )
-                                : console.log(formErrorAndLoad, "error does not exist") 
+                                : console.log(formErrorAndLoad, "error does not exist")
                             }
                             <button className="LoginForm-btn">Submit</button>
                         </div>

@@ -108,7 +108,8 @@ class JoblyApi {
   /**
    * Make API call to get individual user data
    */
-  static async getUserData(username) {
+  static async getUserData(username, token) {
+    this.token = token;
     let res = await this.request(`users/${username}`);
     return res;
   }
