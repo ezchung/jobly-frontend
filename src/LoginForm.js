@@ -1,6 +1,7 @@
 import { useState, useContext} from "react";
 import { Navigate } from "react-router-dom";
 import userContext from "./userContext";
+import "./LoginForm.css";
 
 /**
  * Props: handleLogin from JoblyApp
@@ -70,7 +71,9 @@ function LoginForm({ handleLogin }) {
                         <Navigate to="/companies"></Navigate>
                     </div>
                 ) : (
+                    
                     <form className="LoginForm-form" onSubmit={handleSubmit}>
+                        <h1>Log In</h1>
                         <div className="LoginForm-div">
                             <input
                                 id="LoginForm-username"

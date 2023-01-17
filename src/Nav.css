@@ -8,3 +8,7 @@
   color: white;
 }
 /* FIXME: Took out isActive = nav active. Nothing happening rn */
+
+.btn{
+  width: 5px;
+}

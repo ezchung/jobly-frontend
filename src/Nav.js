@@ -55,11 +55,11 @@ function Nav({ handleLogout }) {
       ) : (
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li className="nav-link px-2 link-secondary">
-            <NavLink to={"/login"}>Login</NavLink>
+            <NavLink className="btn btn-success" to={"/login"}>Login</NavLink>
           </li>
 
           <li className="nav-link px-2 link-secondary">
-            <NavLink to={"/signup"}>Sign Up</NavLink>
+            <NavLink className="btn btn-success" to={"/signup"}>Sign Up</NavLink>
           </li>
         </ul>
       )}

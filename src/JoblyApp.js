@@ -5,6 +5,7 @@ import Nav from "./Nav";
 import RoutesList from "./RoutesList";
 import userContext from "./userContext";
 import jwt_decode from "jwt-decode";
+import "./JoblyApp.css"
 
 /** Component for managing jobly application
  *

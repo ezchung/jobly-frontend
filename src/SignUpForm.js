@@ -67,6 +67,7 @@ function SignUpForm({ handleSignUp }) {
                 ) : (
                     <div className="SignUpForm" onSubmit={handleSubmit}>
                         <form className="SignUpForm-form">
+                            <h1>Sign Up</h1>
                             <input
                                 id="SignUpForm-username"
                                 name="username"
